@@ -60,9 +60,20 @@ const AddProductForm = () => {
     },
   });
 
+  const setCustomValue = useCallback(
+    (id: string, value: string | number | boolean | ImageType[] | null) => {
+      setValue(id, value, {
+        shouldValidate: true,
+        shouldDirty: true,
+        shouldTouch: true,
+      });
+    },
+    [setValue]
+  );
+
   useEffect(() => {
     setCustomValue("images", images);
-  }, [images]);
+  }, [images,setCustomValue]);
 
   useEffect(() => {
     if (isProductCreated) {
@@ -70,14 +81,14 @@ const AddProductForm = () => {
       setImages(null);
       setIsProductCreated(false);
     }
-  }, [isProductCreated]);
+  }, [isProductCreated,reset]);
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     console.log("Product Data", data);
     // upload images to firebase
     // szve product to mongodb
     setIsLoading(true);
-    let uploadedImages: UploadedImageType[] = [];
+    const uploadedImages: UploadedImageType[] = [];
 
     if (!data.category) {
       setIsLoading(false);
@@ -159,6 +170,7 @@ const AddProductForm = () => {
         router.refresh();
       })
       .catch((error) => {
+        console.log(error)
         toast.error("Something went wrong with saving product to db");
       })
       .finally(() => {
@@ -167,13 +179,7 @@ const AddProductForm = () => {
   };
 
   const category = watch("category");
-  const setCustomValue = (id: string, value: any) => {
-    setValue(id, value, {
-      shouldValidate: true,
-      shouldDirty: true,
-      shouldTouch: true,
-    });
-  };
+
 
   const addImageToState = useCallback((value: ImageType) => {
     setImages((prev) => {

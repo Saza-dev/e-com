@@ -57,7 +57,7 @@ const CheckoutClient = () => {
           setLoading(false);
         });
     }
-  }, [cartProducts, paymentIntent]);
+  }, [cartProducts, paymentIntent, handleSetPaymentIntent, router]);
 
   const options: StripeElementsOptions = {
     clientSecret,
@@ -85,7 +85,6 @@ const CheckoutClient = () => {
           <CheckOutForm
             clientSecret={clientSecret}
             handleSetPaymentSuccess={handleSetPaymentSuccess}
-            key={clientSecret}
           />
         </Elements>
       )}

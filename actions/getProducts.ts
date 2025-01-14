@@ -14,7 +14,7 @@ export default async function getProducts(params: IproductParams) {
       searchString = "";
     }
 
-    let query: any = {};
+    const query: any = {};
 
     if (category) {
       query.category = category;

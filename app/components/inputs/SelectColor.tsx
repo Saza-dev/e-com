@@ -31,7 +31,7 @@ const SelectColor: React.FC<SelectColorProps> = ({
   const handleFileChange = useCallback((value: File) => {
     setFile(value);
     addImageToState({ ...item, image: value });
-  }, []);
+  }, [item,addImageToState]);
 
   const handleCheck = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setIsSelected(e.target.checked);
@@ -40,7 +40,7 @@ const SelectColor: React.FC<SelectColorProps> = ({
       setFile(null);
       removeImageFromState(item);
     }
-  }, []);
+  }, [item,removeImageFromState]);
 
   return (
     <div className="grid grid-cols-1  overflow-y-auto border-b-[1.2px] border-slate-200 items-center p-2">

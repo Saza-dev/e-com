@@ -67,7 +67,7 @@ const ProductDetails: React.FC<ProductDetialsProps> = ({ product }) => {
         setIsproductInCart(true);
       }
     }
-  }, [cartProducts]);
+  }, [cartProducts,product.id]);
 
   // product rating
   const productRating =
@@ -81,7 +81,7 @@ const ProductDetails: React.FC<ProductDetialsProps> = ({ product }) => {
         return { ...prev, selectedImg: value };
       });
     },
-    [cartProduct.selectedImg]
+    []
   );
 
   // handling the increase button
@@ -89,14 +89,14 @@ const ProductDetails: React.FC<ProductDetialsProps> = ({ product }) => {
     setCartProduct((prev) => {
       return { ...prev, quantity: prev.quantity + 1 };
     });
-  }, [cartProduct]);
+  }, []);
 
   // handling the decrease button
   const handleQtyDecrease = useCallback(() => {
     setCartProduct((prev) => {
       return { ...prev, quantity: Math.max(prev.quantity - 1, 1) };
     });
-  }, [cartProduct]);
+  }, []);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12">

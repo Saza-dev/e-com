@@ -28,20 +28,19 @@ type ExtendedOrder = Order & {
 
 const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
   const router = useRouter();
-  let rows: any = [];
+  let rows:any= [];
 
   if (orders) {
-    rows = orders.map((order) => {
-      return {
-        id: order.id,
-        customer: order.user.name,
-        amount: formatPrice(order.amount / 100),
-        paymentStatus: order.status,
-        date: moment(order.createDate).fromNow(),
-        deliveryStatus: order.deliveryStatus,
-      };
-    });
+    rows = orders.map((order) => ({
+      id: order.id,
+      customer: order.user.name,
+      amount: formatPrice(order.amount / 100),
+      paymentStatus: order.status,
+      date: moment(order.createDate).fromNow(),
+      deliveryStatus: order.deliveryStatus,
+    }));
   }
+  
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 220 },
@@ -161,7 +160,7 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
         id,
         deliveryStatus: "dispatched",
       })
-      .then((res) => {
+      .then(() => {
         toast.success("Order dispatched");
         router.refresh();
       })
@@ -169,7 +168,7 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
         toast.error("!Oops something went wrong");
         console.log(err);
       });
-  }, []);
+  }, [router]);
 
   const handleDeliver = useCallback((id: string) => {
     axios
@@ -177,7 +176,7 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
         id,
         deliveryStatus: "delivered",
       })
-      .then((res) => {
+      .then(() => {
         toast.success("Order delivered");
         router.refresh();
       })
@@ -185,7 +184,7 @@ const ManageOrdersClient: React.FC<ManageOrdersClientProps> = ({ orders }) => {
         toast.error("!Oops something went wrong");
         console.log(err);
       });
-  }, []);
+  }, [router]);
 
   return (
     <div className="max-w-[1150px] m-auto text-xl">

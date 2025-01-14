@@ -118,7 +118,7 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
         id,
         inStock: !inStock,
       })
-      .then((res) => {
+      .then(() => {
         toast.success("Product Status changed");
         router.refresh();
       })
@@ -126,7 +126,7 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
         toast.error("!Oops something went wrong");
         console.log(err);
       });
-  }, []);
+  }, [router]);
 
   const handleDelete = useCallback(async(id: string, images: any[]) => {
     toast("Deleting Product, please wait");
@@ -147,7 +147,7 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
 
     await handleImageDelete()
 
-    axios.delete(`/api/product/${id}`).then((res) => {
+    axios.delete(`/api/product/${id}`).then(() => {
       toast.success("Product Deleted");
       router.refresh();
     }).catch((error)=>{
@@ -155,7 +155,7 @@ const ManageProductsClient: React.FC<ManageProductsClientProps> = ({
       console.log(error)
     })
 
-  }, []);
+  }, [router,storage]);
 
   return (
     <div className="max-w-[1150px] m-auto text-xl">

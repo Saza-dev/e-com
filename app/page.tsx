@@ -18,14 +18,19 @@ export default async function Home({ searchParams }: HomeProps) {
     return <NullData title='Oops! No products found. Click "All" to clear filters'/>;
   }
 
-  function shuffleArray(array:any){
-    for (let i = array.length - 1; i>0; i--){
-      const j = Math.floor(Math.random() * (i+1))
-      [array[i], array[j]] = [array[j], array[i]] 
+  function shuffleArray(array: any[]) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1)); // Ensure j is a valid index
+      if (j !== i) {
+        const temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+      }
     }
-
-    return array
+  
+    return array;
   }
+  
 
   const shuffledProducts = shuffleArray(products)
 

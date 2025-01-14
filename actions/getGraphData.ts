@@ -1,4 +1,3 @@
-import pisma from '@/libs/prismadb';
 import moment from 'moment';
 
 export default async function getGraphData(){

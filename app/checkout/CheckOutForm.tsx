@@ -38,7 +38,7 @@ const CheckOutForm: React.FC<CheckOutFormProps> = ({
       return;
     }
     handleSetPaymentSuccess(false);
-  }, [stripe]);
+  }, [stripe, clientSecret, handleSetPaymentSuccess]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
